@@ -1,0 +1,8 @@
+{
+    "title": "Building a Static Blog with HTML and JS",
+    "slug": "building-static-blog",
+    "date": "2025-04-05",
+    "tags": ["html", "javascript", "tutorial"],
+    "content": "In this post, I walk through how to build a static blog using only HTML, CSS, and JavaScript. This approach is great for portfolios and small business websites.I created this for my portfolio in my website . We cover creating JSON post files, rendering posts dynamically, adding tag filters, and even implementing a simple admin panel."
+  }
+  

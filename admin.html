@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Post Generator</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    textarea, input, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      background: #f4f4f4;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+    }
+
+    body.dark #output {
+      background: #2c2c2c;
+      color: #eee;
+      border-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Post Generator</h1>
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+  </header>
+
+  <main>
+    <label>Post Title:</label>
+    <input type="text" id="title" placeholder="Enter blog title" />
+
+    <label>Tags (comma separated):</label>
+    <input type="text" id="tags" placeholder="e.g. html, css, blog" />
+
+    <label>Post Content (HTML supported):</label>
+    <textarea id="content" rows="10" placeholder="Write your post content here..."></textarea>
+
+    <button onclick="generatePost()">Generate JSON</button>
+
+    <h3>Generated JSON:</h3>
+    <pre id="output"></pre>
+  </main>
+
+  <script>
+    function generateSlug(title) {
+      return title
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+    }
+
+    function generatePost() {
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const tags = document.getElementById('tags').value.split(',').map(t => t.trim()).filter(Boolean);
+      const slug = generateSlug(title);
+      const date = new Date().toISOString().split('T')[0];
+
+      const json = {
+        title,
+        slug,
+        date,
+        tags,
+        content
+      };
+
+      document.getElementById('output').textContent = JSON.stringify(json, null, 2);
+    }
+  </script>
+  <script src="assets/darkmode.js"></script>
+</body>
+</html>

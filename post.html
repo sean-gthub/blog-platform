@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header>
+    <h1><a href="EchoPress.html" style="text-decoration: none; color: inherit;">← Back to Blog</a></h1>
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+  </header>
+
+  <main id="postContent" class="fade-in"></main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    async function loadPost(slug) {
+      try {
+        const res = await fetch(`posts/${slug}.json`);
+        const post = await res.json();
+
+        const container = document.getElementById("postContent");
+        container.innerHTML = `
+          <article class="post-preview">
+            <h2>${post.title}</h2>
+            <p><em>${post.date}</em></p>
+            <div>${post.content}</div>
+            <small>Tags: ${post.tags.join(', ')}</small>
+          </article>
+        `;
+      } catch (err) {
+        document.getElementById("postContent").innerHTML = `
+          <p>Post not found.</p>
+        `;
+      }
+    }
+
+    if (slug) {
+      loadPost(slug);
+    } else {
+      document.getElementById("postContent").innerHTML = `<p>No post specified.</p>`;
+    }
+  </script>
+
+  <script src="assets/darkmode.js"></script>
+</body>
+</html>
