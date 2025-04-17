@@ -5,7 +5,7 @@ let currentTag = null;
 
 async function loadPosts() {
   // Simulate loading multiple posts
-  const postFiles = ['posts/post-1.json']; // Add more files as you create them
+  const postFiles = ['posts/post-1.json','posts/post-2.json']; // Add more files as you create them
   const postPromises = postFiles.map(file => fetch(file).then(res => res.json()));
   allPosts = await Promise.all(postPromises);
   displayTags();
